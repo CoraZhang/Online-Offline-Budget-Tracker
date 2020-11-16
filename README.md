@@ -27,9 +27,9 @@ GIVEN a user is on Budget App without an internet connection
 WHEN the user inputs a withdrawal or deposit
 THEN that will be shown on the page, and added to their transaction history when their connection is back online.
 
-## Deployment
+## Deployment on heroku
 
-* Deploy your application with [Heroku and MongoDB Atlas.](../04-Important/MongoAtlas-Deploy.md)
+* https://mysterious-harbor-81945.herokuapp.com/
 
 ## Screenshots
-
+![alt text](./Dash.png)
