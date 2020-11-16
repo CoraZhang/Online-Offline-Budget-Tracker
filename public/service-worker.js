@@ -6,7 +6,7 @@ const iconFiles = iconSizes.map(
     (size) => `/icons/icon-${size}x${size}.png`
 );
 
-const staticFilesToPreCache = [
+const FILES_TO_CACHE = [
     "/",
     "/index.html",
     "/index.js",
@@ -18,12 +18,15 @@ const staticFilesToPreCache = [
 
 // install
 self.addEventListener("install", function(evt) {
+    // pre cache static data
     evt.waitUntil(
         caches.open(CACHE_NAME).then(cache => {
             console.log("Your files were pre-cached successfully!");
-            return cache.addAll(staticFilesToPreCache);
+            return cache.addAll(FILES_TO_CACHE);
         })
     );
+    // tell the browser to activate this service worker immediately once it
+    // has finished installing
 
     self.skipWaiting();
 });
@@ -52,6 +55,7 @@ self.addEventListener("fetch", function(evt) {
             caches.open(DATA_CACHE_NAME).then(cache => {
                 return fetch(evt.request)
                     .then(response => {
+                        // If the response was good, clone it and store it in the cache.
                         if (response.status === 200) {
                             cache.put(evt.request, response.clone());
                         }
